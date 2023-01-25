@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Test Cam</title>
+    <style>
+      .border {
+        border: 1px solid #000;
+        border-radius: 5px;
+        padding: 5px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Data</h1>
+    <table class="border">
+      <tr>
+        <td class="border">ID</td>
+        <td class="border">Data</td>
+        <td class="border">Extension</td>
+      </tr>
+      {{range $data := .data}}
+      <tr>
+        <td class="border">{{$data.Name}}</td>
+        {{if or (eq $data.Extension ".mp3") (eq $data.Extension ".aac") (eq
+        $data.Extension "wav") }}
+        <td class="border">
+          <audio controls>
+            <source src="/media/{{$data.Name}}" type="audio/mp4" />
+          </audio>
+        </td>
+        {{else}}
+        <td class="border">
+          <img
+            src="/media/{{$data.Name}}"
+            alt=""
+            srcset=""
+            width="50%"
+            height="auto"
+          />
+        </td>
+        {{end}}
+        <td class="border">{{$data.Extension}}</td>
+      </tr>
+      {{end}}
+    </table>
+  </body>
+</html>
