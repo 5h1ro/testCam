@@ -24,7 +24,7 @@ type Entity struct {
 	Extension string `json:"extension"`
 }
 
-func (f *File) createFile(c *gin.Context) {
+func (f *File) CreateFile(c *gin.Context) {
 	file, err := c.FormFile("file")
 	if err != nil {
 		c.String(http.StatusBadRequest, fmt.Sprintf("get form err: %s", err.Error()))
@@ -59,6 +59,35 @@ func (f *File) createFile(c *gin.Context) {
 	res := map[string]interface{}{
 		"message": fmt.Sprintf("File %s uploaded successfully", file.Filename),
 		"data":    rows,
+	}
+
+	c.JSON(http.StatusOK, res)
+}
+
+func (f *File) DeleteAllFile(c *gin.Context) {
+	stmt, err := f.db.Prepare(`DELETE FROM medias`)
+	if err != nil {
+		fmt.Println(err)
+	}
+	stmt.Exec()
+
+	res := map[string]interface{}{
+		"message": fmt.Sprintf("All file deleted"),
+	}
+
+	c.JSON(http.StatusOK, res)
+}
+
+func (f *File) DeleteFile(c *gin.Context) {
+	id := c.Param("id")
+	stmt, err := f.db.Prepare(`DELETE FROM medias WHERE id = ?`)
+	if err != nil {
+		fmt.Println(id)
+	}
+	stmt.Exec(id)
+
+	res := map[string]interface{}{
+		"message": fmt.Sprintf("All file with id => " + id),
 	}
 
 	c.JSON(http.StatusOK, res)

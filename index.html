@@ -23,7 +23,7 @@
       </tr>
       {{range $data := .data}}
       <tr>
-        <td class="border">{{$data.Name}}</td>
+        <td class="border">{{$data.ID}}</td>
         {{if or (eq $data.Extension ".mp3") (eq $data.Extension ".aac") (eq
         $data.Extension "wav") }}
         <td class="border">

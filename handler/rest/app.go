@@ -43,7 +43,9 @@ func StartApp() {
 			"data": rows,
 		})
 	})
-	route.POST("/create", filesHandler.createFile)
+	route.POST("/create", filesHandler.CreateFile)
+	route.DELETE("/delete", filesHandler.DeleteAllFile)
+	route.DELETE("/delete/:id", filesHandler.DeleteFile)
 
 	fmt.Println("Server running on PORT =>", port)
 	route.Run(port)
